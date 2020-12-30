@@ -8,8 +8,8 @@ edition = "2018"
 
 [dev-dependencies]
 criterion = "^0.3"
-anyhow = "^1"
+rand = "^0.8"
 
 [[bench]]
-name = "trie_insertion"
+name = "trie"
 harness = false

@@ -15,6 +15,10 @@ impl NaiveTrie {
     pub fn remove(&mut self, data: &[u8]) {
         self.head.remove(data);
     }
+
+    pub fn contains(&self, data: &[u8]) -> bool {
+        self.head.contains(data)
+    }
 }
 
 #[derive(Clone)]
@@ -42,7 +46,7 @@ impl Node {
             let in_use = &mut self.in_use;
             let next = self.next[cur as usize].get_or_insert_with(|| {
                 *in_use += 1;
-                Node::default()
+                Node::new()
             });
             next.insert(rest);
         }
@@ -58,6 +62,19 @@ impl Node {
                     self.in_use -= 1;
                 }
             }
+        }
+    }
+
+    fn contains(&self, data: &[u8]) -> bool {
+        if let Some((&cur, rest)) = data.split_first() {
+            let next_slot = &self.next[cur as usize];
+            if let Some(next) = next_slot {
+                next.contains(rest)
+            } else {
+                false
+            }
+        } else {
+            true
         }
     }
 
