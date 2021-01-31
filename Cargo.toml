@@ -9,6 +9,7 @@ edition = "2018"
 [dependencies]
 anyhow = "^1"
 argh = "^0.1"
+mimalloc = { version = "*", default-features = false }
 
 [dev-dependencies]
 criterion = "^0.3"
